@@ -63,9 +63,9 @@ public class ChartView extends AnchorPane {
 
         ValueAxis axis = plot.getDomainAxis();
         axis.setAutoRange(true);
-        axis.setFixedAutoRange(100.0);
+        axis.setFixedAutoRange(20000);
         axis = plot.getRangeAxis();
-        axis.setRange(0.0, 2.0);
+        axis.setRange(-180, 180);
         /*plot.getDomainAxis().setLabelFont(new Font(fontName, Font.BOLD, 14));
         plot.getDomainAxis().setTickLabelFont(new Font(fontName, Font.PLAIN, 12));
         plot.getRangeAxis().setLabelFont(new Font(fontName, Font.BOLD, 14));
@@ -92,6 +92,7 @@ public class ChartView extends AnchorPane {
 
         ((TimeSeriesCollection)dataset).addSeries(series);
         Files.lines(Paths.get(filename)).skip(startLine).forEach(l->{
+            l = l.replaceAll(";","");
             String[] dataStrings = l.split(dataSeparator);
             long timeStamp = Long.parseLong(dataStrings[timeIndex]);
             double data = Double.parseDouble(dataStrings[dataIndex]);
@@ -120,6 +121,10 @@ public class ChartView extends AnchorPane {
 
     public void removeSeries(int index){
         ((TimeSeriesCollection)dataset).removeSeries(index);
+    }
+
+    public void clear(){
+        ((TimeSeriesCollection)dataset).removeAllSeries();
     }
 
 }
