@@ -12,7 +12,7 @@ public class DataCreator {
         StringBuilder builder  = new StringBuilder();
 
         for (int i = 0; i < 100; i++) {
-            builder.append(i).append(",").append(Math.random()).append("\n");
+            builder.append(i*1000).append(",").append(Math.random()*100).append("\n");
         }
 
         try {

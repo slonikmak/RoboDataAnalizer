@@ -14,6 +14,7 @@ import org.jfree.chart.ui.HorizontalAlignment;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.time.TimeSeriesDataItem;
 import org.jfree.data.xy.XYDataset;
 
 import java.awt.*;
@@ -28,6 +29,7 @@ public class ChartView extends AnchorPane {
     //"Robo Data Chart"
     private final String chartName;
     private final String dataSeparator = ",";
+    XYLineAndShapeRenderer renderer;
 
     private XYDataset dataset;
     private JFreeChart chart;
@@ -75,7 +77,7 @@ public class ChartView extends AnchorPane {
         chart.getLegend().setHorizontalAlignment(HorizontalAlignment.CENTER);
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+            renderer = (XYLineAndShapeRenderer) r;
             renderer.setDefaultShapesVisible(false);
             renderer.setDrawSeriesLineAsPath(true);
             // set the default stroke for all series
@@ -96,7 +98,7 @@ public class ChartView extends AnchorPane {
             String[] dataStrings = l.split(dataSeparator);
             long timeStamp = Long.parseLong(dataStrings[timeIndex]);
             double data = Double.parseDouble(dataStrings[dataIndex]);
-            System.out.println(timeStamp+" "+data);
+            //System.out.println(timeStamp+" "+data);
             series.add(new Millisecond(new Date(timeStamp)), data);
         });
 
@@ -106,16 +108,21 @@ public class ChartView extends AnchorPane {
 
     }
 
-    public int createDynamicSeries(String name){
+    public int createDynamicSeries(String name, Paint paint){
         TimeSeries series = new TimeSeries(name);
+
         ((TimeSeriesCollection)dataset).addSeries(series);
-        return ((TimeSeriesCollection)dataset).getSeriesIndex(series.getKey());
+        int index = ((TimeSeriesCollection)dataset).getSeriesIndex(series.getKey());
+        renderer.setSeriesPaint(index, paint);
+        return index;
     }
 
     public void addDataToSeries(long time, double data, int index){
+        //System.out.println("add to series "+time+" "+data+" "+index);
         TimeSeries series = ((TimeSeriesCollection)dataset).getSeries(index);
         Platform.runLater(()->{
-            series.add(new Millisecond(new Date(time)), data);
+            series.add(new TimeSeriesDataItem(new Millisecond(new Date(time)), data));
+            //series.add(new Millisecond(new Date(time)), data);
         });
     }
 
