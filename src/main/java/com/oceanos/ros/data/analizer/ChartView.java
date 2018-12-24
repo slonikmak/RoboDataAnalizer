@@ -131,6 +131,7 @@ public class ChartView extends AnchorPane {
     }
 
     public void clear(){
+
         ((TimeSeriesCollection)dataset).removeAllSeries();
     }
 

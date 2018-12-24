@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <AnchorPane fx:id="chartPane" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <GridPane layoutX="15.0" layoutY="412.0">
@@ -40,5 +39,6 @@
       <ListView fx:id="chartsList" layoutX="243.0" layoutY="412.0" prefHeight="120.0" prefWidth="200.0" />
       <Button layoutX="243.0" layoutY="537.0" mnemonicParsing="false" onAction="#addChart" text="Add" />
       <Button layoutX="292.0" layoutY="537.0" mnemonicParsing="false" onAction="#deleteChart" text="Delete" />
+      <Button layoutX="464.0" layoutY="419.0" mnemonicParsing="false" onAction="#clearChart" text="Clear" />
    </children>
 </AnchorPane>

@@ -25,9 +25,11 @@ import java.net.UnknownHostException;
 
 public class Controller {
 
-    ObservableList<ChartListItemData> chartListItemData = FXCollections.observableArrayList();
+    private ObservableList<ChartListItemData> chartListItemData = FXCollections.observableArrayList();
 
-    UDPClient client;
+    private UDPClient client;
+
+    private ChartView chartView;
 
 
     @FXML
@@ -54,6 +56,16 @@ public class Controller {
     }
 
     @FXML
+    void clearChart(){
+
+        ///chartPane.getChildren().clear();
+        //chartView = new ChartView("Chart", chartPane.getWidth(), chartPane.getHeight());
+        //chartPane.getChildren().add(chartView);
+        chartView.clear();
+        fillChart();
+    }
+
+    @FXML
     void connect(ActionEvent event) {
         chartPane.getChildren().clear();
 
@@ -64,15 +76,12 @@ public class Controller {
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
-        ChartView chartView = new ChartView("Chart", chartPane.getWidth(), chartPane.getHeight());
+        chartView = new ChartView("Chart", chartPane.getWidth(), chartPane.getHeight());
 
 
         chartPane.getChildren().add(chartView);
 
-        chartListItemData.forEach(c->{
-            Color color = c.color.get();
-            chartView.createDynamicSeries(""+c.index, new java.awt.Color((float)color.getRed(), (float)color.getGreen(), (float)color.getBlue(), (float)color.getOpacity()));
-        });
+        fillChart();
         client.setOnRecived(c->{
             String[] data = new String(c).split(separatorField.getText());
             long time = Long.parseLong(data[Integer.parseInt(timeIndexField.getText())]);
@@ -88,6 +97,13 @@ public class Controller {
     @FXML
     void deleteChart(ActionEvent event) {
 
+    }
+
+    private void fillChart(){
+        chartListItemData.forEach(c->{
+            Color color = c.color.get();
+            chartView.createDynamicSeries(""+c.index, new java.awt.Color((float)color.getRed(), (float)color.getGreen(), (float)color.getBlue(), (float)color.getOpacity()));
+        });
     }
 
     public void initialize(){
