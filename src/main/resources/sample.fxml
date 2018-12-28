@@ -30,7 +30,7 @@
             <Label text="Separator" GridPane.rowIndex="2" />
             <Label text="Time index" GridPane.rowIndex="3" />
             <TextField fx:id="hostField" text="192.168.10.82" GridPane.columnIndex="1" />
-            <TextField fx:id="portField" text="4447" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="portField" text="4449" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="separatorField" text="," GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="timeIndexField" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Button mnemonicParsing="false" onAction="#connect" text="Connect" GridPane.rowIndex="4" />

@@ -52,7 +52,7 @@ public class Controller {
 
     @FXML
     void addChart(ActionEvent event) {
-        chartListItemData.add(new ChartListItemData(Color.RED, chartListItemData.size()));
+        chartListItemData.add(new ChartListItemData(Color.RED, chartListItemData.size()+1));
     }
 
     @FXML
@@ -61,14 +61,16 @@ public class Controller {
         ///chartPane.getChildren().clear();
         //chartView = new ChartView("Chart", chartPane.getWidth(), chartPane.getHeight());
         //chartPane.getChildren().add(chartView);
-        chartView.clear();
+        if (chartView != null) chartView.clear();
         fillChart();
     }
 
     @FXML
     void connect(ActionEvent event) {
         chartPane.getChildren().clear();
+        clearChart();
 
+        initChartData();
         try {
             client = new UDPClient(hostField.getText(), Integer.valueOf(portField.getText()), 256);
             client.start();
@@ -109,6 +111,13 @@ public class Controller {
     public void initialize(){
         chartsList.setItems(chartListItemData);
         chartsList.setCellFactory(param -> new ChartViewCell());
+    }
+
+    void initChartData(){
+        chartListItemData.clear();
+        chartListItemData.add(new ChartListItemData(Color.RED, 1));
+        chartListItemData.add(new ChartListItemData(Color.BLUE, 2));
+        chartListItemData.add(new ChartListItemData(Color.YELLOW, 3));
     }
 
     class ChartListItemData{
